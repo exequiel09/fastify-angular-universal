@@ -1,0 +1,13 @@
+{
+    "name": "fastify-angular-universal",
+    "version": "0.1.0",
+    "author": "Exequiel Ceasar Navarrete",
+    "description": "Plugin for rendering an Angular app from the server using Angular Universal",
+    "main": "index.js",
+    "keywords": [
+        "fastify",
+        "angular",
+        "angular-universal"
+    ],
+    "license": "MIT"
+}

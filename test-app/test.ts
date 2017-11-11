@@ -21,7 +21,7 @@ const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader')
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
 
 test('should return an html document', t => {
-  t.plan(2);
+  t.plan(6);
 
   const fastify = Fastify();
 
@@ -44,8 +44,27 @@ test('should return an html document', t => {
     (reply as any).renderNg(request.req.url);
   });
 
+  // retrieve the homepage
   fastify.inject({
     url: '/',
+    method: 'GET'
+  }, res => {
+    t.equal(res.statusCode, 200);
+    t.equal(res.headers['content-type'], 'text/html');
+  });
+
+  // retrieve the about page
+  fastify.inject({
+    url: '/about',
+    method: 'GET'
+  }, res => {
+    t.equal(res.statusCode, 200);
+    t.equal(res.headers['content-type'], 'text/html');
+  });
+
+  // retrieve the contact-us page
+  fastify.inject({
+    url: '/contact-us',
     method: 'GET'
   }, res => {
     t.equal(res.statusCode, 200);

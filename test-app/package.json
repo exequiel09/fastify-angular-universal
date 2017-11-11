@@ -9,7 +9,7 @@
     "start": "ng serve",
     "start:ssr": "ts-node server.ts",
     "build": "ng build",
-    "build:browser": "ng build --prod --deploy-url /static",
+    "build:browser": "ng build --prod --deploy-url /static/",
     "build:server": "ng build --prod --app 1 --output-hashing=none",
     "test": "NODE_ENV=production ts-node test.ts",
     "lint": "ng lint",

@@ -73,7 +73,7 @@ test('should return an html document', t => {
 });
 
 test('should throw if serverModule option is not provided', t => {
-  t.plan(1);
+  t.plan(3);
 
   const fastify = Fastify();
 
@@ -88,15 +88,27 @@ test('should throw if serverModule option is not provided', t => {
     extraProviders: [
       provideModuleMap(LAZY_MODULE_MAP)
     ]
-  }, (err) => {
-    if (err) {
-      t.equal(err.message, 'Missing Angular Server module to render.');
-    }
+  });
+
+  // Declare a route
+  fastify.get('/*', function (request, reply) {
+    (reply as any).renderNg(request.req.url);
+  });
+
+  fastify.inject({
+    url: '/',
+    method: 'GET'
+  }, res => {
+    const payload = JSON.parse(res.payload);
+
+    t.equal(res.statusCode, 500);
+    t.equal(res.statusMessage, 'Internal Server Error');
+    t.equal(payload.message, 'Missing Angular Server module to render.');
   });
 });
 
 test('should throw if document option is not provided', t => {
-  t.plan(1);
+  t.plan(3);
 
   const fastify = Fastify();
 
@@ -111,10 +123,22 @@ test('should throw if document option is not provided', t => {
     extraProviders: [
       provideModuleMap(LAZY_MODULE_MAP)
     ]
-  }, (err) => {
-    if (err) {
-      t.equal(err.message, 'Missing template where the Angular app will be rendered.');
-    }
+  });
+
+  // Declare a route
+  fastify.get('/*', function (request, reply) {
+    (reply as any).renderNg(request.req.url);
+  });
+
+  fastify.inject({
+    url: '/',
+    method: 'GET'
+  }, res => {
+    const payload = JSON.parse(res.payload);
+
+    t.equal(res.statusCode, 500);
+    t.equal(res.statusMessage, 'Internal Server Error');
+    t.equal(payload.message, 'Missing template where the Angular app will be rendered.');
   });
 });
 

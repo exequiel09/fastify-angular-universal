@@ -29,6 +29,6 @@ before_install:
 
 script:
   # run the test script in the directory
-  - cd test-app && yarn test
+  - cd ../test-app && yarn test
 
 

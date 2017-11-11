@@ -16,7 +16,7 @@ Add it to you project with `register` and pass the required options.
 
 Follow the tutorial on how to perform SSR in Angular with Angular CLI [here](https://github.com/angular/angular-cli/wiki/stories-universal-rendering) ONLY UNTIL step 3.
 
-For the steps 4 and onwards use the following `server.ts` or check out the [`server.ts`](https://raw.githubusercontent.com/exequiel09/fastify-angular-universal/master/test-app/server.ts) in the test-app directory
+For the steps 4 and onwards use the following `server.ts` or check out the [`server.ts`](https://github.com/exequiel09/fastify-angular-universal/blob/master/test-app/server.ts) in the test-app directory
 
 ```typescript
 // These are important and needed before anything else
@@ -60,6 +60,10 @@ app.register(require('fastify-angular-universal'), {
 
 // Declare a route
 app.get('/*', function (request, reply) {
+  // NOTE: you can also pass the options for the fastify-angular-universal fastify plugin 
+  //       as second parameter to the `.renderNg()` function.
+  // 
+  //       Example: `reply.renderNg(url, options)`
   (reply as any).renderNg(request.req.url);
 });
 

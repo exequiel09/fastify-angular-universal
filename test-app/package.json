@@ -1,6 +1,8 @@
 {
   "name": "test-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "author": "Exequiel Ceasar Navarrete",
+  "description": "Test Angular app for validating if the fastify-angular-universal plugin works",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

@@ -1,5 +1,7 @@
 # fastify-angular-universal
 
+[![Build Status](https://travis-ci.org/exequiel09/fastify-angular-universal.svg?branch=master)](https://travis-ci.org/exequiel09/fastify-angular-universal)
+
 Angular server-side rendering support for Fastify using Angular Universal.
 
 ## Install

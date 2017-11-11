@@ -1,1 +1,4 @@
 test-app
+.envrc
+.nvmrc
+.editorconfig

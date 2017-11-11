@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:ssr": "ts-node server.ts",
     "build": "ng build",
     "build:browser": "ng build --prod --deploy-url /static",
     "build:server": "ng build --prod --app 1 --output-hashing=none",
@@ -26,6 +27,9 @@
     "@angular/router": "^5.0.0",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
     "core-js": "^2.4.1",
+    "fastify": "^0.33.0",
+    "fastify-angular-universal": "file:../",
+    "fastify-static": "^0.3.0",
     "rxjs": "^5.5.2",
     "ts-loader": "^3.1.1",
     "zone.js": "^0.8.14"
@@ -35,6 +39,7 @@
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/node": "~6.0.60",
+    "ts-node": "^3.3.0",
     "typescript": "~2.4.2"
   }
 }

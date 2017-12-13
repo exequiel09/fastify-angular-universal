@@ -20,16 +20,35 @@ const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/mai
 const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
 
-test('should return an html document', t => {
-  t.plan(6);
-
-  const fastify = Fastify();
-
+function createDefaultServer(fastify) {
   // just for the sake of preventing errors associated with static assets like css and js
   fastify.register(require('fastify-static'), {
     root: join(DIST_FOLDER, 'browser'),
     prefix: '/static/'
   });
+
+  fastify.get('/api', function (request, reply) {
+    reply
+      .code(200)
+      .send([
+        "John Doe",
+        "Juan Alvarez"
+      ])
+      ;
+  });
+
+  // Declare a route
+  fastify.get('/*', function (request, reply) {
+    (reply as any).renderNg(request.req.url);
+  });
+
+  return fastify;
+}
+
+test('should return an html document', t => {
+  t.plan(6);
+
+  const fastify = createDefaultServer(Fastify());
 
   fastify.register(require('fastify-angular-universal'), {
     serverModule: AppServerModuleNgFactory,
@@ -39,60 +58,65 @@ test('should return an html document', t => {
     ]
   });
 
-  // Declare a route
-  fastify.get('/*', function (request, reply) {
-    (reply as any).renderNg(request.req.url);
+  // run the http server since we are serving a dummy api
+  fastify.listen(3000, function(err) {
+    if (err) {
+      throw err;
+    }
   });
 
   // retrieve the homepage
-  fastify.inject({
-    url: '/',
-    method: 'GET'
-  }, res => {
-    t.equal(res.statusCode, 200);
-    t.equal(res.headers['content-type'], 'text/html');
-  });
+  const home = fastify
+    .inject({
+      url: '/',
+      method: 'GET'
+    })
+    .then(res => {
+      t.equal(res.statusCode, 200);
+      t.equal(res.headers['content-type'], 'text/html');
+    })
+    ;
 
   // retrieve the about page
-  fastify.inject({
-    url: '/about',
-    method: 'GET'
-  }, res => {
-    t.equal(res.statusCode, 200);
-    t.equal(res.headers['content-type'], 'text/html');
-  });
+  const about = fastify
+    .inject({
+      url: '/about',
+      method: 'GET'
+    })
+    .then(res => {
+      t.equal(res.statusCode, 200);
+      t.equal(res.headers['content-type'], 'text/html');
+    })
+    ;
 
   // retrieve the contact-us page
-  fastify.inject({
-    url: '/contact-us',
-    method: 'GET'
-  }, res => {
-    t.equal(res.statusCode, 200);
-    t.equal(res.headers['content-type'], 'text/html');
+  const contactUs = fastify
+    .inject({
+      url: '/contact-us',
+      method: 'GET'
+    })
+    .then(res => {
+      t.equal(res.statusCode, 200);
+      t.equal(res.headers['content-type'], 'text/html');
+    })
+    ;
+
+  // wait for all the promises to resolve then we cleanup the server
+  Promise.all([home, about, contactUs]).then(() => {
+    fastify.close();
   });
 });
 
 test('should throw if serverModule option is not provided', t => {
   t.plan(3);
 
-  const fastify = Fastify();
-
-  // just for the sake of preventing errors associated with static assets like css and js
-  fastify.register(require('fastify-static'), {
-    root: join(DIST_FOLDER, 'browser'),
-    prefix: '/static/'
-  });
+  const fastify = createDefaultServer(Fastify());
 
   fastify.register(require('fastify-angular-universal'), {
     document: template,
     extraProviders: [
       provideModuleMap(LAZY_MODULE_MAP)
     ]
-  });
-
-  // Declare a route
-  fastify.get('/*', function (request, reply) {
-    (reply as any).renderNg(request.req.url);
   });
 
   fastify.inject({
@@ -110,24 +134,13 @@ test('should throw if serverModule option is not provided', t => {
 test('should throw if document option is not provided', t => {
   t.plan(3);
 
-  const fastify = Fastify();
-
-  // just for the sake of preventing errors associated with static assets like css and js
-  fastify.register(require('fastify-static'), {
-    root: join(DIST_FOLDER, 'browser'),
-    prefix: '/static/'
-  });
+  const fastify = createDefaultServer(Fastify());
 
   fastify.register(require('fastify-angular-universal'), {
     serverModule: AppServerModuleNgFactory,
     extraProviders: [
       provideModuleMap(LAZY_MODULE_MAP)
     ]
-  });
-
-  // Declare a route
-  fastify.get('/*', function (request, reply) {
-    (reply as any).renderNg(request.req.url);
   });
 
   fastify.inject({

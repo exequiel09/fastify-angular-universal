@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
+
+const NAMES_KEY = makeStateKey('names');
 
 @Component({
   selector: 'app-root',
@@ -22,10 +26,33 @@ import { Component } from '@angular/core';
         <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
       </li>
     </ul>
+    <span>
+      {{ names | json }}
+    </span>
     <router-outlet></router-outlet>
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
+  names: any;
+
+  constructor(
+    private _http: HttpClient,
+    private _state: TransferState
+  ) {  }
+
+  ngOnInit() {
+    this.names = this._state.get(NAMES_KEY, null as any);
+
+    if (!this.names) {
+      this._http.get<string[]>('http://localhost:3000/api').subscribe(data => {
+        this.names = data;
+        this._state.set(NAMES_KEY, data as any);
+
+        console.log(data);
+      });
+    }
+  }
+
 }

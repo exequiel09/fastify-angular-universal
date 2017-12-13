@@ -37,6 +37,16 @@ app.register(require('fastify-angular-universal'), {
   ]
 });
 
+app.get('/api', function(request, reply) {
+  reply
+    .code(200)
+    .send([
+      "John Doe",
+      "Juan Alvarez"
+    ])
+    ;
+});
+
 // Declare a route
 app.get('/*', function (request, reply) {
   (reply as any).renderNg(request.req.url);

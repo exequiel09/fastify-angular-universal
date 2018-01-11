@@ -1,6 +1,7 @@
 # fastify-angular-universal
 
 [![Build Status](https://travis-ci.org/exequiel09/fastify-angular-universal.svg?branch=master)](https://travis-ci.org/exequiel09/fastify-angular-universal)
+[![Build status](https://ci.appveyor.com/api/projects/status/5hg5qsav8q2xjqah/branch/master?svg=true)](https://ci.appveyor.com/project/exequiel09/fastify-angular-universal/branch/master)
 
 Angular server-side rendering support for Fastify using Angular Universal.
 

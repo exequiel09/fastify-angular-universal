@@ -12,6 +12,7 @@
     "build:browser": "ng build --prod --deploy-url /static/",
     "build:server": "ng build --prod --app 1 --output-hashing=none",
     "test": "NODE_ENV=production ts-node test.ts",
+    "test:win": "ts-node test.ts",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

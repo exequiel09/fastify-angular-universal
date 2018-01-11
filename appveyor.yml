@@ -1,0 +1,51 @@
+# Test against this version of Node.js
+environment:
+  matrix:
+    - nodejs_version: '8'
+    - nodejs_version: '6'
+
+# fail all the builds once any of the builds fail have failed
+matrix:
+  fast_finish: true
+
+# build only this branches
+branches:
+  only:
+  - master
+
+# Do not build tags
+skip_tags: true
+
+# Pull Requests do not increment build number
+pull_requests:
+  do_not_increment_build_number: true
+
+# Install scripts. (runs after repo cloning)
+install:
+  # install google chrome
+  - choco install googlechrome
+
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+
+  # Install @angular/cli globally
+  - npm install -g @angular/cli
+
+  # install the dependencies and build the necessary files
+  - cd test-app && yarn install && yarn build:browser && yarn build:server
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  - ng --version
+
+  # run the test script in the directory
+  - set NODE_ENV=production
+  - cd test-app && yarn test:win
+
+# Don't actually build.
+build: off
+
+

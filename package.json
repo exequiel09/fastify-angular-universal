@@ -1,6 +1,6 @@
 {
     "name": "fastify-angular-universal",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": "Exequiel Ceasar Navarrete",
     "description": "Fastify plugin for rendering an Angular app from the server using Angular Universal",
     "main": "index.js",

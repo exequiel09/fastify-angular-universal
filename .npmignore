@@ -2,3 +2,6 @@ test-app
 .envrc
 .nvmrc
 .editorconfig
+yarn.lock
+.travis.yml
+appveyor.yml

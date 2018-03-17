@@ -1,7 +1,8 @@
 # fastify-angular-universal
 
-[![Build Status](https://travis-ci.org/exequiel09/fastify-angular-universal.svg?branch=master)](https://travis-ci.org/exequiel09/fastify-angular-universal)
-[![Build status](https://ci.appveyor.com/api/projects/status/5hg5qsav8q2xjqah/branch/master?svg=true)](https://ci.appveyor.com/project/exequiel09/fastify-angular-universal/branch/master)
+[![Master - Build Status][img-travis-master]][link-travis]
+[![Master - Build Status][img-appveyor-master]][link-appveyor-master]
+[![LICENSE][img-license]][link-license]
 
 Angular server-side rendering support for Fastify using Angular Universal.
 
@@ -15,9 +16,9 @@ npm install --save fastify-angular-universal
 
 Add it to you project with `register` and pass the required options.
 
-Follow the tutorial on how to perform SSR in Angular with Angular CLI [here](https://github.com/angular/angular-cli/wiki/stories-universal-rendering) ONLY UNTIL step 3.
+Follow the tutorial on how to perform SSR in Angular with Angular CLI [here][link-angular-cli-universal-rendering] ONLY UNTIL step 3.
 
-For the steps 4 and onwards use the following `server.ts` or check out the [`server.ts`](https://github.com/exequiel09/fastify-angular-universal/blob/master/test-app/server.ts) in the test-app directory
+For the steps 4 and onwards use the following `server.ts` or check out the [`server.ts`][link-server-ts] in the test-app directory
 
 ```typescript
 // These are important and needed before anything else
@@ -88,6 +89,21 @@ This plugin allow you to specify options:
 
 ## License
 
-MIT
+[MIT][link-license].
+
+<!-- [Images] ::start -->
+[img-travis-master]: https://travis-ci.org/exequiel09/fastify-angular-universal.svg?branch=master
+[img-appveyor-master]: https://ci.appveyor.com/api/projects/status/5hg5qsav8q2xjqah/branch/master?svg=true
+[img-license]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+<!-- [Images] ::end -->
+
+
+<!-- [Links] ::start -->
+[link-license]: ./LICENSE
+[link-travis]: https://travis-ci.org/exequiel09/fastify-angular-universal
+[link-appveyor-master]: https://ci.appveyor.com/project/exequiel09/fastify-angular-universal/branch/master
+[link-angular-cli-universal-rendering]: https://github.com/angular/angular-cli/wiki/stories-universal-rendering
+[link-server-ts]: https://github.com/exequiel09/fastify-angular-universal/blob/master/test-app/server.ts
+<!-- [Links] ::end -->
 
 

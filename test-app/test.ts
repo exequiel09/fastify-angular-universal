@@ -48,7 +48,7 @@ test('should return an html document', t => {
   fastify.inject({
     url: '/',
     method: 'GET'
-  }, res => {
+  }, (err, res) => {
     t.equal(res.statusCode, 200);
     t.equal(res.headers['content-type'], 'text/html');
   });
@@ -57,7 +57,7 @@ test('should return an html document', t => {
   fastify.inject({
     url: '/about',
     method: 'GET'
-  }, res => {
+  }, (err, res) => {
     t.equal(res.statusCode, 200);
     t.equal(res.headers['content-type'], 'text/html');
   });
@@ -66,7 +66,7 @@ test('should return an html document', t => {
   fastify.inject({
     url: '/contact-us',
     method: 'GET'
-  }, res => {
+  }, (err, res) => {
     t.equal(res.statusCode, 200);
     t.equal(res.headers['content-type'], 'text/html');
   });
@@ -98,7 +98,7 @@ test('should throw if serverModule option is not provided', t => {
   fastify.inject({
     url: '/',
     method: 'GET'
-  }, res => {
+  }, (err, res) => {
     const payload = JSON.parse(res.payload);
 
     t.equal(res.statusCode, 500);
@@ -133,7 +133,7 @@ test('should throw if document option is not provided', t => {
   fastify.inject({
     url: '/',
     method: 'GET'
-  }, res => {
+  }, (err, res) => {
     const payload = JSON.parse(res.payload);
 
     t.equal(res.statusCode, 500);

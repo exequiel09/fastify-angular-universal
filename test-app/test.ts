@@ -16,18 +16,18 @@ const test = t.test;
 
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/test-app-server/main');
 const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
-const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const template = readFileSync(join(DIST_FOLDER, 'test-app', 'index.html')).toString();
 
-test('should return an html document', t => {
-  t.plan(6);
+test('should return an html document', childTest => {
+  childTest.plan(6);
 
   const fastify = Fastify();
 
   // just for the sake of preventing errors associated with static assets like css and js
   fastify.register(require('fastify-static'), {
-    root: join(DIST_FOLDER, 'browser'),
+    root: join(DIST_FOLDER, 'test-app'),
     prefix: '/static/'
   });
 
@@ -49,8 +49,8 @@ test('should return an html document', t => {
     url: '/',
     method: 'GET'
   }, (err, res) => {
-    t.equal(res.statusCode, 200);
-    t.equal(res.headers['content-type'], 'text/html');
+    childTest.equal(res.statusCode, 200);
+    childTest.equal(res.headers['content-type'], 'text/html');
   });
 
   // retrieve the about page
@@ -58,8 +58,8 @@ test('should return an html document', t => {
     url: '/about',
     method: 'GET'
   }, (err, res) => {
-    t.equal(res.statusCode, 200);
-    t.equal(res.headers['content-type'], 'text/html');
+    childTest.equal(res.statusCode, 200);
+    childTest.equal(res.headers['content-type'], 'text/html');
   });
 
   // retrieve the contact-us page
@@ -67,19 +67,19 @@ test('should return an html document', t => {
     url: '/contact-us',
     method: 'GET'
   }, (err, res) => {
-    t.equal(res.statusCode, 200);
-    t.equal(res.headers['content-type'], 'text/html');
+    childTest.equal(res.statusCode, 200);
+    childTest.equal(res.headers['content-type'], 'text/html');
   });
 });
 
-test('should throw if serverModule option is not provided', t => {
-  t.plan(3);
+test('should throw if serverModule option is not provided', childTest => {
+  childTest.plan(3);
 
   const fastify = Fastify();
 
   // just for the sake of preventing errors associated with static assets like css and js
   fastify.register(require('fastify-static'), {
-    root: join(DIST_FOLDER, 'browser'),
+    root: join(DIST_FOLDER, 'test-app'),
     prefix: '/static/'
   });
 
@@ -101,20 +101,20 @@ test('should throw if serverModule option is not provided', t => {
   }, (err, res) => {
     const payload = JSON.parse(res.payload);
 
-    t.equal(res.statusCode, 500);
-    t.equal(res.statusMessage, 'Internal Server Error');
-    t.equal(payload.message, 'Missing Angular Server module to render.');
+    childTest.equal(res.statusCode, 500);
+    childTest.equal(res.statusMessage, 'Internal Server Error');
+    childTest.equal(payload.message, 'Missing Angular Server module to render.');
   });
 });
 
-test('should throw if document option is not provided', t => {
-  t.plan(3);
+test('should throw if document option is not provided', childTest => {
+  childTest.plan(3);
 
   const fastify = Fastify();
 
   // just for the sake of preventing errors associated with static assets like css and js
   fastify.register(require('fastify-static'), {
-    root: join(DIST_FOLDER, 'browser'),
+    root: join(DIST_FOLDER, 'test-app'),
     prefix: '/static/'
   });
 
@@ -136,9 +136,9 @@ test('should throw if document option is not provided', t => {
   }, (err, res) => {
     const payload = JSON.parse(res.payload);
 
-    t.equal(res.statusCode, 500);
-    t.equal(res.statusMessage, 'Internal Server Error');
-    t.equal(payload.message, 'Missing template where the Angular app will be rendered.');
+    childTest.equal(res.statusCode, 500);
+    childTest.equal(res.statusMessage, 'Internal Server Error');
+    childTest.equal(payload.message, 'Missing template where the Angular app will be rendered.');
   });
 });
 

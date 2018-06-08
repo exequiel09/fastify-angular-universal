@@ -19,20 +19,20 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@angular/platform-server": "^5.2.9",
-        "fastify-plugin": "^0.2.2"
+        "@angular/platform-server": "^6.0.4",
+        "fastify-plugin": "^1.0.1"
     },
     "peerDependencies": {
-        "@angular/animations": "^5.2.9",
-        "@angular/common": "^5.2.9",
-        "@angular/compiler": "^5.2.9",
-        "@angular/core": "^5.2.9",
-        "@angular/forms": "^5.2.9",
-        "@angular/http": "^5.2.9",
-        "@angular/platform-browser": "^5.2.9",
-        "@angular/platform-browser-dynamic": "^5.2.9",
-        "@angular/router": "^5.2.9",
-        "fastify": "^1.1.1",
-        "rxjs": "^5.5.7"
+        "@angular/animations": "^6.0.4",
+        "@angular/common": "^6.0.4",
+        "@angular/compiler": "^6.0.4",
+        "@angular/core": "^6.0.4",
+        "@angular/forms": "^6.0.4",
+        "@angular/http": "^6.0.4",
+        "@angular/platform-browser": "^6.0.4",
+        "@angular/platform-browser-dynamic": "^6.0.4",
+        "@angular/router": "^6.0.4",
+        "fastify": "^1.5.0",
+        "rxjs": "^6.2.0"
     }
 }

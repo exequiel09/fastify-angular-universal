@@ -50,6 +50,6 @@ function fastifyNgUniversal(fastify, opts, next) {
   next();
 }
 
-module.exports = fastifyPlugin(fastifyNgUniversal, '>=1.1.1');
+module.exports = fastifyPlugin(fastifyNgUniversal, '>=1.5.0');
 
 

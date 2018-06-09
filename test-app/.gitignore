@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 
+# dependencies
+/node_modules
+
 # IDEs and editors
 /.idea
 .project
@@ -27,6 +30,7 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
 
@@ -40,6 +44,5 @@ Thumbs.db
 
 # Environment Files
 .envrc
-/src/environments/*.ts
 
 

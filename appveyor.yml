@@ -2,7 +2,6 @@
 environment:
   matrix:
     - nodejs_version: '8'
-    - nodejs_version: '6'
 
 # fail all the builds once any of the builds fail have failed
 matrix:
@@ -29,7 +28,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
 
   # Install @angular/cli globally
-  - npm install -g @angular/cli
+  - npm install -g @angular/cli@6.0.8
 
   # install the dependencies and build the necessary files
   - cd test-app && yarn install && yarn build:browser && yarn build:server
@@ -39,11 +38,10 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
-  - ng --version
 
   # run the test script in the directory
   - set NODE_ENV=production
-  - cd test-app && yarn test:win
+  - cd test-app && ng --version && yarn test:win
 
 # Don't actually build.
 build: off

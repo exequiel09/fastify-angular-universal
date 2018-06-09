@@ -32,7 +32,7 @@ import { enableProdMode } from '@angular/core';
 import * as fastify from 'fastify';
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/<your-project-name-here>-server/main');
 const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
 
 // Faster server renders w/ Prod mode (dev mode never needed)
@@ -42,12 +42,12 @@ const PORT = process.env.PORT || 3000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // Our index.html we'll use as our template
-const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const template = readFileSync(join(DIST_FOLDER, '<your-project-name-here>', 'index.html')).toString();
 
 const app = fastify();
 
 app.register(require('fastify-static'), {
-  root: join(DIST_FOLDER, 'browser'),
+  root: join(DIST_FOLDER, '<your-project-name-here>'),
   prefix: '/static/'
 });
 

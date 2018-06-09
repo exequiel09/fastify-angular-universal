@@ -38,11 +38,10 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
-  - ng --version
 
   # run the test script in the directory
   - set NODE_ENV=production
-  - cd test-app && yarn test:win
+  - cd test-app && ng --version && yarn test:win
 
 # Don't actually build.
 build: off
